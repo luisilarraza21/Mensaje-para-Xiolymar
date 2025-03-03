@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un mensaje especial para Xiolymar</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #e74c3c;
+            margin-bottom: 30px;
+        }
+        .music-player {
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .instructions {
+            margin-bottom: 20px;
+            font-style: italic;
+            color: #666;
+        }
+        .letter-section {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: left;
+            line-height: 1.6;
+        }
+        .letter-title {
+            text-align: center;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        .signature {
+            margin-top: 30px;
+            text-align: right;
+            font-style: italic;
+        }
+        button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            display: none;
+        }
+        button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tengo algo importante que decirte, Xiolymar...</h1>
+        
+        <div class="instructions">
+            Por favor, escucha esta canción completa. Cuando termine, aparecerá un mensaje especial para ti.
+        </div>
+        
+        <div class="music-player">
+            <p>Para continuar, por favor escucha "El embrujo" de Morat:</p>
+            <!-- Aquí debes insertar un reproductor de audio o video -->
+            <!-- Opción 1: Puedes usar un iframe de YouTube -->
+            <div id="player-container">
+                <!-- Aquí se insertará el reproductor -->
+                <p>Cargando reproductor...</p>
+            </div>
+        </div>
+        
+        <button id="download-button">Leer mensaje</button>
+        
+        <div id="letter" class="letter-section">
+            <h2 class="letter-title">Para la persona más especial en mi vida</h2>
+            
+            <!-- Aquí escribe tu carta. Este es solo un ejemplo, reemplázalo con tus propias palabras -->
+            <p>Querida Xiolymar,</p>
+            
+            <p>Hay momentos en la vida en los que las palabras parecen no ser suficientes, pero hoy quiero intentarlo. Durante todo este tiempo que hemos compartido como amigos, algo ha ido creciendo en mí que ya no puedo seguir ocultando.</p>
+            
+            <p>Nuestra amistad es uno de los tesoros más grandes que tengo, pero mis sentimientos han evolucionado hacia algo más profundo. Cada momento contigo, cada risa compartida, cada conversación hasta altas horas de la noche, han hecho que mi corazón se llene de un sentimiento que va más allá de la amistad.</p>
+            
+            <p>No sé si has notado las veces que me pierdo en tus palabras, o cómo mi mirada te busca cuando estamos en un grupo. Quizás has percibido cómo me ilumino cuando llegas, o cómo intento estar ahí para ti en todo momento.</p>
+            
+            <p>Te he elegido esta canción porque refleja una parte de lo que siento por ti. Ese embrujo del que habla es exactamente lo que has creado en mí, una magia que no puedo ni quiero romper.</p>
+            
+            <p>No quiero perder nuestra amistad, es demasiado valiosa para mí. Pero sentía que necesitaba ser honesto contigo y con lo que siento. No espero nada a cambio, solo quería que lo supieras.</p>
+            
+            <p>Pase lo que pase después de esto, quiero que sepas que eres una persona extraordinaria y que tenerte en mi vida, sea como sea, es uno de mis mayores privilegios.</p>
+            
+            <div class="signature">
+                Con todo mi cariño,<br>
+                Luis
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para cargar el reproductor de YouTube
+        function loadYouTubePlayer() {
+            // Crear un elemento iframe para el reproductor de YouTube
+            const iframe = document.createElement('iframe');
+            iframe.width = "560";
+            iframe.height = "315";
+            // ID del video "El embrujo" de Morat
+            iframe.src = "https://www.youtube.com/embed/4pPMt6ZhCa4?enablejsapi=1";
+            iframe.frameborder = "0";
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+            iframe.allowFullscreen = true;
+            iframe.id = "youtube-player";
+            
+            // Reemplazar el contenido del contenedor
+            const container = document.getElementById('player-container');
+            container.innerHTML = '';
+            container.appendChild(iframe);
+            
+            // Cargar la API de YouTube
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+        
+        // Variable para el reproductor de YouTube
+        let player;
+        
+        // Función llamada por la API de YouTube cuando está lista
+        window.onYouTubeIframeAPIReady = function() {
+            player = new YT.Player('youtube-player', {
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        };
+        
+        // Función para manejar cambios en el estado del reproductor
+        function onPlayerStateChange(event) {
+            // Estado 0 significa que el video ha terminado
+            if (event.data === 0) {
+                // Mostrar el botón para ver la carta
+                document.getElementById('download-button').style.display = 'inline-block';
+            }
+        }
+        
+        // Cargar el reproductor cuando la página esté lista
+        window.addEventListener('load', loadYouTubePlayer);
+        
+        // Manejar el clic en el botón para mostrar la carta
+        document.getElementById('download-button').addEventListener('click', function() {
+            document.getElementById('letter').style.display = 'block';
+            // Desplazarse suavemente hasta la carta
+            document.getElementById('letter').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
